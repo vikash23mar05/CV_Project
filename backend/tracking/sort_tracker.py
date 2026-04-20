@@ -207,27 +207,27 @@ class SortTracker:
             dtype=float
         ) if detections else np.empty((0, 4))
 
-        # Step 1: Predict new locations for all existing tracks
+        # Predict new locations for all existing tracks
         pred_boxes = np.array(
             [t.predict() for t in self.trackers],
             dtype=float
         ) if self.trackers else np.empty((0, 4))
 
-        # Step 2: Match detections ↔ predictions using Hungarian algorithm
+        # Match detections ↔ predictions using Hungarian algorithm
         matches, unmatched_dets, unmatched_preds = _hungarian_match(
             det_boxes, pred_boxes, self.iou_threshold
         )
 
-        # Step 3: Update matched tracks with their detection
+        # Update matched tracks with their detection
         for d_idx, p_idx in matches:
             self.trackers[p_idx].update(det_boxes[d_idx])
 
-        # Step 4: Spawn new tracks for unmatched detections
+        # Spawn new tracks for unmatched detections
         for d_idx in unmatched_dets:
             new_tracker = KalmanBoxTracker(det_boxes[d_idx])
             self.trackers.append(new_tracker)
 
-        # Step 5: Remove stale tracks & collect results
+        # Remove stale tracks & collect results
         active_tracks = []
         results       = []
 

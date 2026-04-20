@@ -1,9 +1,4 @@
-"""
-MOG2 Evaluator: Evaluate MOG2 background subtraction against YOLO detections.
-
-This module compares MOG2-based motion detection with YOLO vehicle detection
-to assess performance metrics (Precision, Recall, F1 Score).
-"""
+"""MOG2 evaluation against YOLO detections."""
 
 import cv2
 import numpy as np
@@ -15,9 +10,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from detection.yolo_detector import YOLODetector
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Utility Functions
-# ─────────────────────────────────────────────────────────────────────────────
 
 def compute_iou(box1: List[float], box2: List[float]) -> float:
     """
@@ -101,9 +94,7 @@ def match_detections(mog2_boxes: List[List[float]],
     return tp, fp, fn
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # MOG2 Background Subtractor
-# ─────────────────────────────────────────────────────────────────────────────
 
 class MOG2BackgroundSubtractor:
     """MOG2-based foreground detection with noise filtering."""
@@ -184,9 +175,7 @@ class MOG2BackgroundSubtractor:
         return boxes
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Metrics Accumulator
-# ─────────────────────────────────────────────────────────────────────────────
 
 class MetricsAccumulator:
     """Accumulate and compute evaluation metrics across frames."""
@@ -255,9 +244,7 @@ class MetricsAccumulator:
         """Print final metrics summary."""
         metrics = self.get_aggregated_metrics()
         
-        print("\n" + "="*60)
         print("MOG2 EVALUATION SUMMARY")
-        print("="*60)
         print(f"Total Frames Processed: {metrics['total_frames']}")
         print(f"Total True Positives:    {metrics['total_tp']}")
         print(f"Total False Positives:   {metrics['total_fp']}")
@@ -265,12 +252,9 @@ class MetricsAccumulator:
         print(f"\nPrecision: {metrics['precision']:.4f} ({metrics['precision']*100:.2f}%)")
         print(f"Recall:    {metrics['recall']:.4f} ({metrics['recall']*100:.2f}%)")
         print(f"F1 Score:  {metrics['f1']:.4f}")
-        print("="*60 + "\n")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Visualization
-# ─────────────────────────────────────────────────────────────────────────────
 
 def draw_detections(frame: np.ndarray,
                    mog2_boxes: List[List[float]],

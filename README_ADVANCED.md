@@ -4,7 +4,7 @@ Complete reference for configuration, customization, training, and troubleshooti
 
 ---
 
-## ⚙️ Configuration Guide
+## Configuration Guide
 
 ### Using config.py
 
@@ -91,7 +91,7 @@ FRAME_PROCESSING["target_width"] = 640  # Smaller resolution
 
 ---
 
-## 🎓 API Reference
+## API Reference
 
 ### Hybrid Pipeline
 
@@ -172,7 +172,7 @@ print(f"Speed: {speed_kmh:.1f} km/h")
 
 ---
 
-## 🚂 Training Your Own Model
+## Training Your Own Model
 
 ### 1. Prepare Dataset
 
@@ -223,7 +223,7 @@ python evaluate_mog2_performance.py \
 
 ---
 
-## 🏃 Performance Optimization
+## Performance Optimization
 
 ### Reduce Latency
 
@@ -259,7 +259,7 @@ SORT_CONFIG["max_age"] = 15   # Remove old tracks faster
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Issue: YAML Not Found or Data Loading Fails
 
@@ -347,7 +347,7 @@ estimator.set_calibration_points((100, 250), (400, 250), 10)
 
 ---
 
-## 📊 Evaluation & Metrics
+## Evaluation & Metrics
 
 ### Compare Detection Methods
 
@@ -388,7 +388,7 @@ cat outputs/metrics.json | python -m json.tool
 
 ---
 
-## 🔧 Development & Debugging
+## Development & Debugging
 
 ### Enable Verbose Logging
 
@@ -440,7 +440,7 @@ stats.print_stats(10)  # Top 10 functions
 
 ---
 
-## 📚 Additional Resources
+## Additional Resources
 
 - **ultralytics/yolov8** - Official YOLOv8 documentation
 - **scipy** - Documentation for SORT algorithm implementation
@@ -449,7 +449,7 @@ stats.print_stats(10)  # Top 10 functions
 
 ---
 
-## 💡 Common Use Cases
+## Common Use Cases
 
 ### Road Congestion Monitoring
 ```python
@@ -482,7 +482,7 @@ if road_stats['road_a']['density'] == 'heavy':
 
 ---
 
-## 🆘 Getting Help
+## Getting Help
 
 **Check these first:**
 1. This file (README_ADVANCED.md)
@@ -499,5 +499,5 @@ if road_stats['road_a']['density'] == 'heavy':
 ---
 
 **Last Updated:** April 12, 2026  
-**Status:** Production Ready ✅
+**Status:** Production Ready
 

@@ -5,12 +5,7 @@ Hybrid Detector: YOLO + MOG2 Integration
 Combines YOLO (high accuracy detection) with MOG2 (motion validation)
 for improved traffic detection in busy scenes.
 
-Strategy:
-1. YOLO detects all potential vehicles
-2. MOG2 detects motion/foreground
-3. Validate YOLO detections against motion
-4. Boost confidence for motion-validated detections
-5. Flag suspicious stationary detections
+Strategies for integrating YOLO and MOG2.
 
 Expected improvements:
 - Reduce false positives (static objects)
@@ -55,7 +50,7 @@ class HybridDetector:
             - confidence: Boosted if motion-validated
             - motion_validated: Boolean flag
         """
-        # Step 1: Get YOLO detections
+        # YOLO detections
         yolo_detections = self.yolo.detect(frame)
         if not yolo_detections:
             return []
@@ -64,11 +59,11 @@ class HybridDetector:
             # Mode 1: YOLO only (original behavior)
             return [(x1, y1, x2, y2, conf, False) for x1, y1, x2, y2, conf in yolo_detections]
         
-        # Step 2: Get MOG2 motion mask and detections
+        # MOG2 motion mask and detections
         motion_mask = self.mog2.get_foreground_mask(frame)
         mog2_boxes = self.mog2.get_bounding_boxes(frame, min_area=400)
         
-        # Step 3: Validate each YOLO detection against motion
+        # Validate each YOLO detection against motion
         validated_detections = []
         
         for x1, y1, x2, y2, conf in yolo_detections:
@@ -319,9 +314,7 @@ class HybridMetrics:
     
     def print_summary(self):
         """Print metrics summary."""
-        print("\n" + "="*60)
         print("HYBRID DETECTION SUMMARY")
-        print("="*60)
         print(f"Total Detections: {self.total_detections}")
         print(f"Motion-Validated: {self.motion_validated} ({100*self.motion_validated/max(1, self.total_detections):.1f}%)")
         print(f"Static Objects: {self.static_detections} ({100*self.static_detections/max(1, self.total_detections):.1f}%)")
@@ -329,4 +322,3 @@ class HybridMetrics:
         if self.confidence_scores:
             avg_conf = np.mean(self.confidence_scores)
             print(f"Average Confidence: {avg_conf:.2%}")
-        print("="*60)

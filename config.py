@@ -13,9 +13,7 @@ Central configuration for all modules including:
 import os
 from pathlib import Path
 
-# ============================================================================
-# PROJECT PATHS
-# ============================================================================
+# Project Paths
 
 PROJECT_ROOT = Path(__file__).parent.resolve()
 BACKEND_DIR = PROJECT_ROOT / "backend"
@@ -27,9 +25,7 @@ TESTS_DIR = PROJECT_ROOT / "tests"
 # Create outputs directory if it doesn't exist
 OUTPUTS_DIR.mkdir(exist_ok=True)
 
-# ============================================================================
-# MODEL PATHS
-# ============================================================================
+# Model Paths
 
 # YOLO Models
 YOLO_MODEL_PATH = MODELS_DIR / "yolov8n.pt"
@@ -38,9 +34,7 @@ YOLO_ALT_MODEL_PATH = MODELS_DIR / "yolo26n.pt"
 # Trained SORT models (if any)
 SORT_MODEL_PATH = None  # SORT is algorithm-based, not neural network
 
-# ============================================================================
-# FRAME PROCESSING
-# ============================================================================
+# Frame Processing
 
 # Standard frame dimensions
 DEFAULT_FRAME_WIDTH = 1280
@@ -52,9 +46,7 @@ FRAME_SKIP = 0  # Process every Nth frame (0 = process all frames)
 FPS_TARGET = 30  # Target FPS for output video
 CONFIDENCE_THRESHOLD = 0.5  # Minimum confidence for detections
 
-# ============================================================================
-# YOLO DETECTION PARAMETERS
-# ============================================================================
+# YOLO Detection Parameters
 
 YOLO_CONFIG = {
     "model_path": YOLO_MODEL_PATH,
@@ -68,9 +60,7 @@ YOLO_CONFIG = {
     "verbose": False,  # Print progress
 }
 
-# ============================================================================
-# MOG2 MOTION DETECTION PARAMETERS
-# ============================================================================
+# MOG2 Motion Detection Parameters
 
 MOG2_CONFIG = {
     "history": 500,  # Length of history in frames
@@ -83,9 +73,7 @@ MOG2_CONFIG = {
     "blur_kernel_size": (5, 5),  # Kernel size for Gaussian blur
 }
 
-# ============================================================================
-# HYBRID DETECTION PARAMETERS
-# ============================================================================
+# Hybrid Detection Parameters
 
 HYBRID_CONFIG = {
     "validate_with_mog2": True,  # Use MOG2 to validate YOLO detections
@@ -95,9 +83,7 @@ HYBRID_CONFIG = {
     "max_detection_area": 0.9,  # Maximum detection area (% of frame)
 }
 
-# ============================================================================
-# SORT TRACKING PARAMETERS
-# ============================================================================
+# SORT Tracking Parameters
 
 SORT_CONFIG = {
     "max_age": 30,  # Maximum frames to keep alive a track without detections
@@ -106,9 +92,7 @@ SORT_CONFIG = {
     "use_kalman": True,  # Use Kalman filter for prediction
 }
 
-# ============================================================================
-# ROAD ANALYZER CONFIGURATION
-# ============================================================================
+# Road Analyzer Configuration
 
 ROAD_ANALYZER_CONFIG = {
     "frame_width": DEFAULT_FRAME_WIDTH,
@@ -123,9 +107,7 @@ ROAD_ANALYZER_CONFIG = {
     # Heavy: >10 vehicles
 }
 
-# ============================================================================
-# SPEED ESTIMATION PARAMETERS
-# ============================================================================
+# Speed Estimation Parameters
 
 SPEED_CONFIG = {
     "calibration_distance_pixels": 300,  # Distance in pixels for calibration
@@ -135,9 +117,7 @@ SPEED_CONFIG = {
     "min_confidence": 0.7,  # Minimum tracking confidence for speed calculation
 }
 
-# ============================================================================
-# VISUALIZATION PARAMETERS
-# ============================================================================
+# Visualization Parameters
 
 VISUALIZATION_CONFIG = {
     # Colors (BGR format)
@@ -161,9 +141,7 @@ VISUALIZATION_CONFIG = {
     "line_thickness": 3,
 }
 
-# ============================================================================
-# EVALUATION PARAMETERS
-# ============================================================================
+# Evaluation Parameters
 
 EVALUATION_CONFIG = {
     "metrics": ["precision", "recall", "f1_score", "fps"],
@@ -172,17 +150,13 @@ EVALUATION_CONFIG = {
     "results_dir": OUTPUTS_DIR / "evaluation",
 }
 
-# ============================================================================
-# LOGGING & DEBUG
-# ============================================================================
+# Logging & Debug
 
 DEBUG_MODE = False  # Enable debug output
 LOG_LEVEL = "INFO"  # DEBUG, INFO, WARNING, ERROR
 VERBOSE = False  # Print detailed information
 
-# ============================================================================
-# VIDEO INPUT/OUTPUT
-# ============================================================================
+# Video Input/Output
 
 VIDEO_CONFIG = {
     "codec": "mp4v",  # Video codec (mp4v, XVID, MJPG, etc.)
@@ -190,9 +164,7 @@ VIDEO_CONFIG = {
     "frame_size": (DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT),
 }
 
-# ============================================================================
-# HELPER FUNCTIONS
-# ============================================================================
+# Helper Functions
 
 def get_model_path(model_type="yolo"):
     """Get path to model file."""
@@ -215,9 +187,7 @@ def ensure_model_exists():
 
 def print_config():
     """Print current configuration."""
-    print("=" * 80)
     print("TrafficManagerCV Configuration")
-    print("=" * 80)
     print(f"Project Root: {PROJECT_ROOT}")
     print(f"Models Directory: {MODELS_DIR}")
     print(f"Data Directory: {DATA_DIR}")
@@ -228,7 +198,7 @@ def print_config():
     print(f"\nMOG2 History: {MOG2_CONFIG['history']}")
     print(f"SORT Max Age: {SORT_CONFIG['max_age']}")
     print(f"Road Analyzer Lanes: {ROAD_ANALYZER_CONFIG['num_lanes']}")
-    print("=" * 80)
+    print("-" * 40)
 
 if __name__ == "__main__":
     # Print configuration when run directly

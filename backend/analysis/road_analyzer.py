@@ -1,17 +1,4 @@
-"""
-Advanced Road Analyzer for Traffic Management
-
-Divides video frame into two roads (A & B), tracks vehicles per road,
-and computes traffic statistics independently for each road.
-
-Features:
-- Configurable road divider position
-- Per-road vehicle counting and density classification
-- Speed averaging per road
-- Lane-wise distribution (5 lanes per road)
-- Anti-flickering buffer zone for vehicles near divider
-- Clean modular architecture for extensibility
-"""
+"""Road analysis logic for traffic management."""
 
 import cv2
 import numpy as np
@@ -45,7 +32,7 @@ class RoadAnalyzer:
     }
     """
     
-    # ==================== DENSITY LEVELS ====================
+    # Density levels
     DENSITY_LIGHT = "LIGHT"
     DENSITY_MEDIUM = "MEDIUM"
     DENSITY_HEAVY = "HEAVY"
@@ -54,7 +41,7 @@ class RoadAnalyzer:
     DENSITY_MEDIUM_THRESHOLD = 10     # 6-10 vehicles
     # >10 is HEAVY
     
-    # ==================== COLOR SCHEMES ====================
+    # Color schemes
     COLOR_LIGHT = (0, 255, 0)      # GREEN
     COLOR_MEDIUM = (0, 165, 255)   # ORANGE
     COLOR_HEAVY = (0, 0, 255)      # RED
@@ -93,7 +80,7 @@ class RoadAnalyzer:
         if self.enable_lanes:
             self._init_lanes()
     
-    # ==================== LANE INITIALIZATION ====================
+    # Lane initialization
     def _init_lanes(self):
         """Initialize 5-lane divisions for each road."""
         # Road A lanes (left side)
@@ -115,7 +102,7 @@ class RoadAnalyzer:
             for i in range(self.num_lanes)
         ]
     
-    # ==================== CORE ASSIGNMENT LOGIC ====================
+    # Core assignment logic
     def get_centroid(self, bbox: List) -> Tuple[float, float]:
         """
         Calculate bounding box centroid.
@@ -186,7 +173,7 @@ class RoadAnalyzer:
         
         return -1  # Out of range
     
-    # ==================== STATISTICS COMPUTATION ====================
+    # Statistics computation
     def calculate_density_category(self, vehicle_count: int) -> str:
         """
         Classify traffic density.
@@ -378,7 +365,7 @@ class RoadAnalyzer:
         
         return lanes
     
-    # ==================== VISUALIZATION ====================
+    # Visualization
     def draw_road_divider(
         self, 
         frame: np.ndarray, 
@@ -610,7 +597,7 @@ class RoadAnalyzer:
         
         return frame
     
-    # ==================== BACKWARDS COMPATIBILITY ====================
+    # Backwards compatibility
     # These methods maintain compatibility with existing code
     
     def compute_road_statistics(self, tracks: List, speeds_dict: Dict) -> Dict:
@@ -635,7 +622,7 @@ class RoadAnalyzer:
             "assignments": stats["assignments"],
         }
     
-    # ==================== UTILITIES ====================
+    # Utilities
     def get_summary_stats(self, road_stats: Dict) -> str:
         """
         Get human-readable summary of road statistics.
@@ -651,9 +638,7 @@ class RoadAnalyzer:
         total = road_stats.get("total", road_stats.get("total_vehicles", 0))
         
         summary = (
-            f"\n{'='*60}\n"
             f"ROAD ANALYSIS SUMMARY\n"
-            f"{'='*60}\n"
             f"Total Vehicles: {total}\n"
             f"\nROAD A (LEFT):\n"
             f"  Vehicles: {a['count'] if 'count' in a else a.get('vehicle_count', 0)}\n"
@@ -663,7 +648,6 @@ class RoadAnalyzer:
             f"  Vehicles: {b['count'] if 'count' in b else b.get('vehicle_count', 0)}\n"
             f"  Density: {b['density']}\n"
             f"  Avg Speed: {b['avg_speed']:.2f} px/fr\n"
-            f"{'='*60}\n"
         )
         
         return summary

@@ -64,17 +64,17 @@ class YOLODetector:
             x1, y1, x2, y2 = box.xyxy[0].tolist()
             conf = float(box.conf[0].item())
             
-            # Filter 1: Confidence threshold
+            # Confidence threshold
             if conf < self.CONFIDENCE_THRESHOLD:
                 continue
             
-            # Filter 2: Size constraints
+            # Size constraints
             width = x2 - x1
             height = y2 - y1
             if width < self.MIN_SIZE or height < self.MIN_SIZE:
                 continue
             
-            # Filter 3: Aspect ratio (exclude tall narrow signs like billboards)
+            # Aspect ratio (exclude tall narrow signs like billboards)
             aspect_ratio = width / height if height > 0 else 1.0
             if aspect_ratio < self.MIN_ASPECT_RATIO or aspect_ratio > self.MAX_ASPECT_RATIO:
                 continue

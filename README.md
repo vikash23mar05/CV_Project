@@ -1,20 +1,20 @@
-# 🚗 TrafficManagerCV - Hybrid Vehicle Detection & Traffic Analysis System
+# TrafficManagerCV - Hybrid Vehicle Detection & Traffic Analysis System
 
 Real-time vehicle detection, tracking, and traffic analysis using YOLO v8, MOG2 motion detection, and SORT tracking algorithm.
 
 **Status:** Production-ready | **License:** Open Source | **Python:** 3.8+ | **GPU-Optional**
 
-## 🎯 Core Features
+## Core Features
 
-- **🤖 Hybrid Vehicle Detection**: Combines YOLO v8 object detection with MOG2 motion validation
-- **📍 Real-time Multi-Object Tracking**: SORT algorithm with persistent vehicle IDs
-- **🛣️ Dual-Road Traffic Analysis**: Per-road vehicle counting, density levels, and congestion estimation
-- **⚡ Speed Estimation**: Pixel-to-real-world vehicle speed calculation (calibration-based)
-- **🔀 Flexible Modes**: Run in hybrid mode (YOLO+MOG2) or MOG2-only for lighter systems
-- **📊 Performance Evaluation**: Detailed metrics comparison between detection methods
-- **🎨 Real-time Visualization**: Live video output with vehicle trajectories and statistics
+- **Hybrid Vehicle Detection**: Combines YOLO v8 object detection with MOG2 motion validation
+- **Real-time Multi-Object Tracking**: SORT algorithm with persistent vehicle IDs
+- **Dual-Road Traffic Analysis**: Per-road vehicle counting, density levels, and congestion estimation
+- **Speed Estimation**: Pixel-to-real-world vehicle speed calculation (calibration-based)
+- **Flexible Modes**: Run in hybrid mode (YOLO+MOG2) or MOG2-only for lighter systems
+- **Performance Evaluation**: Detailed metrics comparison between detection methods
+- **Real-time Visualization**: Live video output with vehicle trajectories and statistics
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 TrafficManagerCV/
@@ -40,7 +40,7 @@ TrafficManagerCV/
 └── runs/                      # Training runs & benchmarks
 ```
 
-## 🚀 Quick Start (5 Minutes)
+## Quick Start Guide
 
 ### 1. Setup Environment
 
@@ -124,7 +124,7 @@ python compare_mog2_yolo.py "path/to/video.mp4"
 - Performance metrics (precision, recall, F1 score)
 - Detection accuracy analysis
 
-## ⚙️ Configuration
+## Configuration
 
 Edit `config.py` to customize:
 
@@ -155,7 +155,7 @@ ROAD_ANALYZER_CONFIG = {
 }
 ```
 
-## 📊 Core Components
+## Core Components
 
 ### Detection
 - **YOLODetector**: YOLOv8 nano model for vehicle detection
@@ -175,7 +175,7 @@ ROAD_ANALYZER_CONFIG = {
 ### Evaluation
 - **MOG2Evaluator**: Performance metrics and comparison
 
-## 📝 API Examples
+## API Examples
 
 ### Hybrid Detection Pipeline
 
@@ -213,7 +213,7 @@ while True:
 cap.release()
 ```
 
-## 🔧 Development
+## Development
 
 ### Running Tests
 
@@ -231,7 +231,7 @@ black backend/
 flake8 backend/
 ```
 
-## 📚 Documentation
+## Documentation
 
 Detailed guides are archived in `archived_documentation/`:
 - MOG2 detection guide
@@ -239,14 +239,14 @@ Detailed guides are archived in `archived_documentation/`:
 - Road analyzer documentation
 - Performance evaluation details
 
-## 🎯 Performance
+## Performance
 
 - **Detection**: ~20-30 FPS (GPU), ~5-10 FPS (CPU)
 - **Tracking**: <1ms per frame
 - **Analysis**: <2ms per frame
 - **Overall**: Real-time performance on modern hardware
 
-## 🤝 Contributing
+## Contributing
 
 When modifying code:
 1. Keep modules decoupled
@@ -255,18 +255,18 @@ When modifying code:
 4. Follow PEP 8 style guide
 5. Add docstrings to functions
 
-## ⚠️ Known Limitations
+## Known Limitations
 
 - Lane detection limited to 5 lanes per road
 - Speed estimation requires calibration
 - MOG2 sensitive to lighting changes
 - Performance varies by video resolution
 
-## 📄 License
+## License
 
 [Your License Here]
 
-## 🤖 Technologies Used
+## Technologies Used
 
 - **YOLOv8** - Real-time object detection
 - **MOG2** - Motion detection algorithm
@@ -274,11 +274,11 @@ When modifying code:
 - **OpenCV** - Computer vision library
 - **SciPy** - Hungarian algorithm for assignment
 
-## 📧 Support
+## Support
 
 For issues or questions, please refer to the detailed documentation in `archived_documentation/` or check the inline code comments.
 
 ---
 
 **Last Updated:** April 12, 2026  
-**Project Status:** Production Ready ✅
+**Project Status:** Production Ready

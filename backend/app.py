@@ -139,10 +139,10 @@ def process_video(video_path, loop=True):
                 continue
             break  # End of video
 
-        # Step 1: Resize to 1280x720 for processing
+        # Resize to 1280x720 for processing
         frame = cv2.resize(frame, (FRAME_WIDTH, FRAME_HEIGHT))
 
-        # Step 2: Detect vehicles with YOLOv8 or Hybrid (YOLO + MOG2)
+        # Detect vehicles with YOLOv8 or Hybrid (YOLO + MOG2)
         hybrid_detections = []  # Store hybrid detections for drawing later
         if USE_HYBRID_DETECTION and hybrid_detector:
             # Use hybrid detector that validates with MOG2
@@ -160,7 +160,7 @@ def process_video(video_path, loop=True):
         # Map detections to a dict of box -> confidence for later lookup
         detection_confidences = {(int(d[0]), int(d[1]), int(d[2]), int(d[3])): d[4] for d in detections}
 
-        # Step 3: Track vehicles across frames
+        # Track vehicles across frames
         tracked_vehicles = tracker.update(detections)
 
         # Map tracked vehicle IDs to confidence scores
@@ -179,17 +179,17 @@ def process_video(video_path, loop=True):
                     break
             confidence_map[vid] = best_conf
 
-        # Step 4: Speed estimation for all tracked vehicles
+        # Speed estimation for all tracked vehicles
         speeds = estimator.estimate_speed(tracked_vehicles)
 
-        # Step 5: Assign vehicles to roads and compute statistics
+        # Assign vehicles to roads and compute statistics
         road_stats = road_analyzer.compute_road_stats(tracked_vehicles, speeds)
 
-        # Step 6: Draw road divider line and labels
+        # Draw road divider line and labels
         frame = road_analyzer.draw_road_divider(frame, color=(0, 255, 255), thickness=2)
         frame = road_analyzer.draw_road_labels(frame, font_scale=0.75, thickness=2)
 
-        # Step 7: Draw road statistics (vehicle count, density, avg speed)
+        # Draw road statistics (vehicle count, density, avg speed)
         frame = road_analyzer.draw_road_statistics(
             frame,
             road_stats,
@@ -197,7 +197,7 @@ def process_video(video_path, loop=True):
             thickness=2,
         )
 
-        # Step 8: Draw detected vehicles with IDs, speeds, and confidence
+        # Draw detected vehicles with IDs, speeds, and confidence
         if USE_HYBRID_DETECTION and hybrid_detections:
             # Use hybrid drawing with GREEN for motion-validated, ORANGE for static
             frame = HybridAnalyzer.draw_detections(frame, hybrid_detections, draw_motion_status=True)
@@ -212,12 +212,12 @@ def process_video(video_path, loop=True):
                 font_scale=0.45,
             )
 
-        # Step 8B: Draw MOG2 motion detection boxes (RED) as separate layer
+        # Draw MOG2 motion detection boxes (RED) as separate layer
         if USE_MOG2_DETECTION and mog2:
             mog2_boxes = mog2.get_bounding_boxes(frame, min_area=400, max_area=None)
             frame = HybridAnalyzer.draw_mog2_detections(frame, mog2_boxes)
 
-        # Step 9: Show current filename at bottom
+        # Show current filename at bottom
         cv2.putText(
             frame,
             os.path.basename(video_path),
@@ -229,12 +229,12 @@ def process_video(video_path, loop=True):
             cv2.LINE_AA,
         )
 
-        # Step 9B: Optional motion overlay
+        # Optional motion overlay
         if USE_MOTION_OVERLAY and mog2:
             motion_mask = mog2.get_foreground_mask(frame)
             frame = HybridAnalyzer.draw_motion_overlay(frame, motion_mask, alpha=0.2)
 
-        # Step 10: Show windows
+        # Show windows
         cv2.imshow("Traffic Detection", frame)
 
         # ESC skips to next video

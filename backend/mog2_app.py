@@ -35,15 +35,9 @@ def main():
         print(f"Error: Video not found: {video_path}")
         sys.exit(1)
     
-    print(f"\n{'='*60}")
-    print(f"MOG2-Only Motion Detection")
-    print(f"{'='*60}")
-    print(f"Video: {os.path.basename(video_path)}")
-    print(f"Calibrate from YOLO: {args.calibrate}")
-    print(f"Show Motion Mask: {args.show_mask}")
-    print(f"Show YOLO Comparison: {args.show_yolo}")
-    print(f"Press 'q' to quit, 'p' to pause")
-    print(f"{'='*60}\n")
+    print(f"Processing Video: {os.path.basename(video_path)}")
+    print(f"Calibration: {args.calibrate} | Mask: {args.show_mask} | YOLO: {args.show_yolo}")
+    print("Press 'q' to quit, 'p' to pause\n")
     
     # Initialize detectors
     mog2_detector = MOG2OnlyDetector(history=500, var_threshold=16)
@@ -139,13 +133,8 @@ def main():
         cap.release()
         cv2.destroyAllWindows()
         
-        print(f"\n{'='*60}")
-        print(f"MOG2 Detector Summary")
-        print(f"{'='*60}")
         print(f"Frames processed: {frame_count}")
-        print(f"MOG2 calibrated: {mog2_detector.calibrated}")
-        print(f"MOG2 min area threshold: {mog2_detector.min_area}")
-        print(f"{'='*60}\n")
+        print(f"MOG2 status: Calibrated={mog2_detector.calibrated}, Min Area={mog2_detector.min_area}")
 
 
 if __name__ == "__main__":
