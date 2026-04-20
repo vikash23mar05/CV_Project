@@ -262,9 +262,6 @@ When modifying code:
 - MOG2 sensitive to lighting changes
 - Performance varies by video resolution
 
-## License
-
-[Your License Here]
 
 ## Technologies Used
 
